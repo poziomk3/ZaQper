@@ -1,12 +1,16 @@
 import flet as ft
 
+from details import Details
+
 
 class ProductDetails(ft.UserControl):
-    def __init__(self, product):
+    def __init__(self, product:Details):
         super().__init__()
         self.product = product
 
     def build(self):
         return ft.Container(
-            content=ft.Text(self.product),
+            bgcolor="red",
+            aspect_ratio=1.0,
+            content=ft.Text(self.product.name),
         )
