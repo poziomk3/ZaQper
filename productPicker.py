@@ -9,12 +9,13 @@ class ProductPicker(ft.UserControl):
         super().__init__()
         print(products)
         self.products = products
+        print(products)
 
     def build(self):
-        build = [ft.Row(
+        build = ft.Column([ft.Row(
 
-            [ft.GridView(
-                [ProductDetails(product) for product in list],
+            [ft.Text("item"),ft.GridView(
+                [ProductDetails(product) for product in prod_list],
                 expand=1,
                 runs_count=5,
                 max_extent=150,
@@ -24,7 +25,7 @@ class ProductPicker(ft.UserControl):
                 auto_scroll=True,
 
             )], alignment=ft.MainAxisAlignment.CENTER
-        ) for list in self.products]
+        ) for prod_list in self.products])
         return build
 
         # for product in self.products:

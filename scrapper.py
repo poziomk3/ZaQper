@@ -1,4 +1,5 @@
 import threading
+import time
 from typing import List
 
 from selenium import webdriver
@@ -14,7 +15,7 @@ def create_driver():
     # chrome_options.add_argument("--headless")  # Uncomment this line to run in headless mode
     chrome_options.add_argument("--disable-gpu")  # Disable GPU acceleration
     driver = webdriver.Chrome(options=chrome_options)
-    driver.minimize_window()
+    # driver.minimize_window()
     return driver
 
 
@@ -32,11 +33,14 @@ def fetch_product_details(product_name: str, driver: webdriver.Chrome) -> List[d
 def fetch_list_of_items(products: List[str]) -> List[List[details.Details]]:
     driver = create_driver()
     result = []
+
+
     for product in products:
         result.append(fetch_product_details(product, driver))
+        # time.sleep(1)
     driver.quit()
-    # print(result)
+    print(*result,sep='\n')
     return result
 
 
-fetch_list_of_items(["nozyczki", "kosiarka", "błyszczyk"] )
+fetch_list_of_items(["nozyczki", "kosiarka", "błyszczyk","kartofle","ziemniak"] )
