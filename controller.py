@@ -1,7 +1,7 @@
 import flet as ft
 
 from details import Details
-from productPicker import ProductPicker
+from ui import ProductPicker
 from scrapper import fetch_list_of_items
 
 
