@@ -19,7 +19,6 @@ def create_driver():
     return driver
 
 
-# Function to fetch product details for a given product name
 def fetch_product_details(product_name: str, driver: webdriver.Chrome) -> List[details.Details]:
     url = f"https://www.ceneo.pl/;szukaj-{product_name}"
     driver.get(url)
@@ -43,4 +42,4 @@ def fetch_list_of_items(products: List[str]) -> List[List[details.Details]]:
     return result
 
 
-fetch_list_of_items(["nozyczki", "kosiarka", "błyszczyk","kartofle","ziemniak"] )
+# fetch_list_of_items(["nozyczki", "kosiarka", "błyszczyk","kartofle","ziemniak"] )

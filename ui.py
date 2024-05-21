@@ -52,3 +52,44 @@ class ListCreator(ft.UserControl):
     def build(self):
         return ft.Column([ft.Text("list-creator")
                           ])
+
+
+class MainMenu(ft.UserControl):
+    def __init__(self, next_state):
+        super().__init__()
+        self.next_state = next_state
+
+    def build(self):
+        return ft.Column(
+            [ft.Text("ZaQ per", text_align=ft.TextAlign.CENTER, size=30),
+             ft.Container(content=ft.ElevatedButton(
+                 content=ft.Container(content=ft.Text("Lets Go!", text_align=ft.TextAlign.CENTER, size=15), padding=10),
+                 on_click=lambda _: self.next_state("list_creator"), bgcolor="blue",
+                 animate_size=True,
+                 color="white"),
+                 padding=ft.Padding(500, 10, 500, 10)),
+             ft.Container(content=ft.ElevatedButton(
+                 content=ft.Container(content=ft.Text("Learn how it works!", text_align=ft.TextAlign.CENTER, size=15),
+                                      padding=10),
+                 on_click=lambda _: self.next_state("instruction"), bgcolor="blue",
+                 animate_size=True,
+                 color="white"),
+                 padding=ft.Padding(500, 10, 500, 10))],
+            alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.STRETCH, height=500)
+
+
+class Instruction(ft.UserControl):
+    def __init__(self, next_state):
+        self.next_state = next_state
+        super().__init__()
+
+    def build(self):
+        return ft.Column(
+            [ft.Text("My instruction", text_align=ft.TextAlign.CENTER, size=30), ft.Container(content=ft.ElevatedButton(
+                content=ft.Container(content=ft.Text("Go back!", text_align=ft.TextAlign.CENTER, size=15),
+                                     padding=10),
+                on_click=lambda _: self.next_state("main_menu"), bgcolor="blue",
+                animate_size=True,
+                color="white"), padding=ft.Padding(500, 10, 500, 10))], alignment=ft.MainAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
+            height=500)
