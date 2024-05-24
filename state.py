@@ -11,7 +11,6 @@ class State(ABC):
     associated with the State. This backreference can be used by States to
     transition the Context to another State.
     """
-
     @property
     def context(self):
         return self._context
@@ -55,9 +54,8 @@ class ListCreatorState(State):
 
     def go_to_next_state(self, additional_info) -> None:
         print("change to list product_picker")
-        print(self.view.auctions)
         state = ProductPickerState()
-        state.products = self.view.auctions
+        state.products = self.view.products
 
         self.context.transition_to(state)
 
@@ -74,4 +72,4 @@ class ProductPickerState(State):
         self.context.transition_to(MainMenuState())
 
     def create_ui(self):
-        return ProductPicker(self.products)
+        return ProductPicker(self.products, self._context.fetch_product_details)
