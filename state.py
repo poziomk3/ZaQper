@@ -40,24 +40,6 @@ class MainMenuState(State):
         return MainMenu(self.go_to_next_state)
 
 
-class ListCreatorState(State):
-    def go_to_next_state(self, additional_info) -> None:
-        print("change to list product_picker")
-        self.context.transition_to(ProductPickerState())
-
-    def create_ui(self):
-        return ListCreator([])
-
-
-class ProductPickerState(State):
-    def go_to_next_state(self, additional_info) -> None:
-        print("change to main menu")
-        self.context.transition_to(MainMenuState())
-
-    def create_ui(self):
-        return ProductPicker([])
-
-
 class InstructionState(State):
     def go_to_next_state(self, additional_info) -> None:
         print("change to main menu")
@@ -65,3 +47,31 @@ class InstructionState(State):
 
     def create_ui(self):
         return Instruction(self.go_to_next_state)
+
+
+class ListCreatorState(State):
+    def __init__(self):
+        self.view = None
+
+    def go_to_next_state(self, additional_info) -> None:
+        print("change to list product_picker")
+        print(self.view.auctions)
+        state = ProductPickerState()
+        state.products = self.view.auctions
+
+        self.context.transition_to(state)
+
+    def create_ui(self):
+        self.view = ListCreator(self.go_to_next_state)
+        return self.view
+
+
+class ProductPickerState(State):
+    products = []
+
+    def go_to_next_state(self, additional_info) -> None:
+        print("change to main menu")
+        self.context.transition_to(MainMenuState())
+
+    def create_ui(self):
+        return ProductPicker(self.products)
