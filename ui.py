@@ -108,20 +108,29 @@ class ListCreator(ft.UserControl):
 
 
 class ProductPicker(ft.UserControl):
-    def __init__(self, products: list[str], fetch_details):
+    def __init__(self, go_next, products: list[str], fetch_details):
         super().__init__()
-        print(products)
         self.products = products
+        self.go_next = go_next
         self.fetch_details = fetch_details
+        self.rows = [ProductRow(prod, self.fetch_details) for prod in self.products]
         print(products)
 
     def build(self):
-        return ft.Column([ProductRow(prod, self.fetch_details) for prod in self.products], height=600,
-                         scroll=ft.ScrollMode.AUTO,
-                         alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.CENTER)
+        return ft.Column(
+            [*self.rows, ft.Container(content=ft.ElevatedButton(
+                content=ft.Container(
+                    content=ft.Text("Add!", text_align=ft.TextAlign.CENTER, size=15),
+                    padding=10),
+                on_click=lambda _: self.go_next("summary"), bgcolor="blue",
+                animate_size=True,
+                color="white"),
+                padding=ft.Padding(500, 10, 500, 10))], height=600,
+            scroll=ft.ScrollMode.AUTO,
+            alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
-        # for product in self.products:
-        #     self.page.add(ft.SafeArea(ft.Text(product)))
+    def get_clicked(self):
+        return [item for sublist in [row.get_is_clicked() for row in self.rows] for item in sublist]
 
 
 class ProductRow(ft.UserControl):
@@ -133,6 +142,7 @@ class ProductRow(ft.UserControl):
         self.product_name = product
         self.auctions = []
         self.fetch_details = fetch_details
+        self.picked_products = []
 
     def build(self):
         fetch_thread = threading.Thread(target=self.on_refresh, args=(True,))
@@ -201,6 +211,10 @@ class ProductRow(ft.UserControl):
 
         )
 
+    def get_is_clicked(self):
+        return [auction for index, auction in enumerate(self.auctions) if
+                self.main_column.current.controls[1].controls[index].is_clicked]
+
     def fetch_auctions(self):
         self.auctions = self.fetch_details(self.product_name, ceneoScrapper(self.sort_dd.current.value),
                                            int(self.rows_dd.current.value) * 4)
@@ -228,6 +242,7 @@ class ProductDetails(ft.UserControl):
         super().__init__()
         self.product = product
         self.view: ft.Container | None = None
+        self.is_clicked = False
 
     def build(self):
         self.view = ft.Container(
@@ -248,7 +263,23 @@ class ProductDetails(ft.UserControl):
     def on_click(self, arg: ft.ControlEvent):
         if self.view.scale == 0.7:
             self.view.scale = 1
+            self.is_clicked = False
         else:
             self.view.scale = 0.7
+            self.is_clicked = True
 
         self.update()
+
+
+class Summary(ft.UserControl):
+    def __init__(self, go_next, products):
+        super().__init__()
+        self.go_next = go_next
+        self.products = products
+
+    def build(self):
+        return ft.Column([ft.Text("Summary", text_align=ft.TextAlign.CENTER, size=30),
+                          ft.Column([ft.Text(product.name, text_align=ft.TextAlign.CENTER, size=15) for product in
+                                     self.products])],
+                         alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
+                         height=500)

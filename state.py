@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import flet as ft
 
-from ui import MainMenu, ListCreator, ProductPicker, Instruction
+from ui import MainMenu, ListCreator, ProductPicker, Instruction, Summary
 
 
 class State(ABC):
@@ -11,6 +11,7 @@ class State(ABC):
     associated with the State. This backreference can be used by States to
     transition the Context to another State.
     """
+
     @property
     def context(self):
         return self._context
@@ -67,9 +68,28 @@ class ListCreatorState(State):
 class ProductPickerState(State):
     products = []
 
+    def __init__(self):
+        self.view = None
+
+    def go_to_next_state(self, additional_info) -> None:
+        print("change to main menu")
+        products = self.view.get_clicked()
+        self._context.open_links(products)
+        new_state = SummaryState()
+        new_state.products = products
+        self.context.transition_to(new_state)
+
+    def create_ui(self):
+        self.view = ProductPicker(self.go_to_next_state, self.products, self._context.fetch_product_details)
+        return self.view
+
+
+class SummaryState(State):
+    products = []
+
     def go_to_next_state(self, additional_info) -> None:
         print("change to main menu")
         self.context.transition_to(MainMenuState())
 
     def create_ui(self):
-        return ProductPicker(self.products, self._context.fetch_product_details)
+        return Summary(self.go_to_next_state, self.products)
