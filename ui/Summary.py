@@ -14,4 +14,4 @@ class Summary(ft.UserControl):
                           ft.Column([ft.Text(product.name, text_align=ft.TextAlign.CENTER, size=15) for product in
                                      self.products])],
                          alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
-                         height=500)
+                         height=760)

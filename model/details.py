@@ -5,10 +5,8 @@ class Details:
         self.image_link = image_link
         self.details_link = details_link
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.name}: {self.price} ({self.details_link}) - {self.image_link}"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{self.name}: {self.price} ({self.details_link}) - {self.image_link}"
-
-

@@ -25,17 +25,3 @@ class MyTitle(ft.UserControl):
 
     def build(self):
         return ft.Text(self.text, text_align=ft.TextAlign.CENTER, size=34, font_family="Arial", italic=True)
-
-# class ColWrapper(ft.UserControl):
-#         def __init__(self, content, ref=None):
-#             super().__init__()
-#             self.content = content
-#             self.ref = ref
-#
-#         def build(self):
-#             return ft.Column(
-#                 self.content,
-#                 ref=self.ref,
-#                 alignment=ft.MainAxisAlignment.CENTER,
-#                 horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
-#                 height=760)

@@ -1,21 +1,24 @@
 from abc import ABC, abstractmethod
+from typing import Optional, List
+
 from ui import MainMenu, ListCreator, ProductPicker, Instruction, Summary
+import flet as ft
 
 
 class State(ABC):
     context = None
 
     @abstractmethod
-    def go_to_next_state(self, additional_info: str):
+    def go_to_next_state(self, additional_info: str) -> None:
         pass
 
     @abstractmethod
-    def create_ui(self):
+    def create_ui(self) -> ft.UserControl:
         pass
 
 
 class MainMenuState(State):
-    def go_to_next_state(self, additional_info) -> None:
+    def go_to_next_state(self, additional_info):
         if additional_info == "instruction":
             self.context.transition_to(InstructionState())
         elif additional_info == "list_creator":
@@ -26,7 +29,7 @@ class MainMenuState(State):
 
 
 class InstructionState(State):
-    def go_to_next_state(self, additional_info) -> None:
+    def go_to_next_state(self, additional_info):
         self.context.transition_to(MainMenuState())
 
     def create_ui(self):
@@ -35,10 +38,9 @@ class InstructionState(State):
 
 class ListCreatorState(State):
     def __init__(self):
-        self.view = None
+        self.view: Optional[ProductPicker] = None
 
-    def go_to_next_state(self, additional_info) -> None:
-        print("change to list product_picker")
+    def go_to_next_state(self, additional_info):
         state = ProductPickerState()
         state.products = self.view.products
 
@@ -52,11 +54,10 @@ class ListCreatorState(State):
 class ProductPickerState(State):
 
     def __init__(self):
-        self.view = None
-        self.products = []
+        self.view: Optional[ProductPicker] = None
+        self.products: List[str] = []
 
-    def go_to_next_state(self, additional_info) -> None:
-        print("change to main menu")
+    def go_to_next_state(self, additional_info):
         products = self.view.get_clicked()
         self.context.open_links(products)
         new_state = SummaryState()
@@ -73,7 +74,7 @@ class SummaryState(State):
     def __init__(self):
         self.products = []
 
-    def go_to_next_state(self, additional_info) -> None:
+    def go_to_next_state(self, additional_info):
         self.context.transition_to(MainMenuState())
 
     def create_ui(self):

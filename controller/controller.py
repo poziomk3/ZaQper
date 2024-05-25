@@ -1,19 +1,18 @@
-from typing import List
+from typing import List, Optional
 
 import flet as ft
 
 from controller.state import State, MainMenuState
 from model.details import Details
-from model.scrapperStrategies import ScrapperStrategy
+from model.scrapper import ScrapperStrategy
 import webbrowser
 
 
 class Controller:
 
     def __init__(self):
-        self.state = None
-        self.page = None
-        print("Controller created")
+        self.state: Optional[State] = None
+        self.page: Optional[ft.Page] = None
 
     def run(self, page: ft.Page):
         self.page = page
@@ -23,7 +22,7 @@ class Controller:
         self.transition_to(MainMenuState())
         self.page.update()
 
-    def transition_to(self, state: State):
+    def transition_to(self, state: State) -> None:
         self.state = state
         self.state.context = self
         if not isinstance(state, MainMenuState):
@@ -42,13 +41,10 @@ class Controller:
         self.page.update()
 
     @staticmethod
-    def fetch_product_details(product_name: str, scrapper: ScrapperStrategy, number_of_items=4) -> \
-            List[Details]:
+    def fetch_product_details(product_name: str, scrapper: ScrapperStrategy, number_of_items=4) -> List[Details]:
         return scrapper.scrape_list_of_products(product_name, number_of_items)
 
     @staticmethod
-    def open_links(links: List[Details]):
+    def open_links(links: List[Details]) -> None:
         for link in links:
             webbrowser.open(link.details_link)
-
-

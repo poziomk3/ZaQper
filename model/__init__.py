@@ -1,2 +1,2 @@
 from .details import Details
-from .scrapperStrategies import ScrapperStrategy
+from .scrapper import ScrapperStrategy
