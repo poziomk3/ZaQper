@@ -5,7 +5,7 @@ import flet as ft
 
 from details import Details
 from scrapperStrategies import ScrapperStrategy, create_driver
-from state import MainMenuState, State
+from state import MainMenuState, State, InstructionState
 import webbrowser
 
 
@@ -18,15 +18,18 @@ class Controller:
 
     def run(self, page: ft.Page):
         self.page = page
+        self.page.window_width = 1400  # window's width is 200 px
+        self.page.window_height = 800  # window's height is 200 px
+        self.page.window_resizable = False
         self.transition_to(MainMenuState())
-        page.update()
+        self.page.update()
 
     def transition_to(self, state: State):
         print(f"Context: Transition to {type(state).__name__}")
 
         self._state = state
         self._state._context = self
-        if not isinstance(state, MainMenuState):
+        if not isinstance(state, MainMenuState) and not isinstance(state, InstructionState):
             self.page.floating_action_button = ft.FloatingActionButton(
                 icon=ft.icons.HOME, on_click=lambda _: self.transition_to(MainMenuState()), bgcolor=ft.colors.BLUE
             )

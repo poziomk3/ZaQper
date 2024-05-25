@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from datetime import time
 from enum import Enum
 
 from fake_useragent import UserAgent
