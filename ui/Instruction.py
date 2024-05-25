@@ -1,9 +1,5 @@
-import time
-
 import flet as ft
 
-from details import Details
-from scrapperStrategies import ceneoScrapper, sortedBy
 from ui.Common import MyButton, MyTitle
 
 

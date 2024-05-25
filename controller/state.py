@@ -1,24 +1,9 @@
 from abc import ABC, abstractmethod
-import flet as ft
-
 from ui import MainMenu, ListCreator, ProductPicker, Instruction, Summary
 
 
 class State(ABC):
-    """
-    The base State class declares methods that all Concrete State should
-    implement and also provides a backreference to the Context object,
-    associated with the State. This backreference can be used by States to
-    transition the Context to another State.
-    """
-
-    @property
-    def context(self):
-        return self._context
-
-    @context.setter
-    def context(self, context) -> None:
-        self._context = context
+    context = None
 
     @abstractmethod
     def go_to_next_state(self, additional_info: str):
@@ -42,7 +27,6 @@ class MainMenuState(State):
 
 class InstructionState(State):
     def go_to_next_state(self, additional_info) -> None:
-        print("change to main menu")
         self.context.transition_to(MainMenuState())
 
     def create_ui(self):
@@ -66,29 +50,30 @@ class ListCreatorState(State):
 
 
 class ProductPickerState(State):
-    products = []
 
     def __init__(self):
         self.view = None
+        self.products = []
 
     def go_to_next_state(self, additional_info) -> None:
         print("change to main menu")
         products = self.view.get_clicked()
-        self._context.open_links(products)
+        self.context.open_links(products)
         new_state = SummaryState()
         new_state.products = products
         self.context.transition_to(new_state)
 
     def create_ui(self):
-        self.view = ProductPicker(self.go_to_next_state, self.products, self._context.fetch_product_details)
+        self.view = ProductPicker(self.go_to_next_state, self.products, self.context.fetch_product_details)
         return self.view
 
 
 class SummaryState(State):
-    products = []
+
+    def __init__(self):
+        self.products = []
 
     def go_to_next_state(self, additional_info) -> None:
-        print("change to main menu")
         self.context.transition_to(MainMenuState())
 
     def create_ui(self):

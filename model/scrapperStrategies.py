@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-from details import Details
+from model.details import Details
 
 
 class sortedBy(Enum):
@@ -21,8 +21,6 @@ class sortedBy(Enum):
 def create_driver():
     ua = UserAgent()
     user_agent = ua.random
-    print(user_agent)
-
     chrome_options = Options()
     chrome_options.add_argument(f'--user-agent={user_agent}')
     # chrome_options.add_argument("--headless")  # Uncomment this line to run in headless mode
@@ -41,8 +39,6 @@ class ScrapperStrategy(ABC):
 
 class ceneoScrapper(ScrapperStrategy):
     def __init__(self, sorted_by=None):
-
-        print("Ceneo scrapper created" + str(sorted_by))
         self.url = f"https://www.ceneo.pl/;szukaj-"
         self.sorted_by = sorted_by
 
@@ -58,31 +54,26 @@ class ceneoScrapper(ScrapperStrategy):
 
     def get_url_suffix(self):
         if self.sorted_by == sortedBy.PRICE_ASC.value:
-            print("price")
             return ";0112-0.htm"
         elif self.sorted_by == sortedBy.POPULARITY.value:
-            print("popularity")
             return ";0115-1.htm"
         else:
-            print("relevance")
             return ""
 
     def strip_details(self, html: str) -> Details:
         soup = BeautifulSoup(html, "html.parser")
         product_name = soup.find('strong', class_='cat-prod-row__name').text.strip()
 
-        details_link = soup.find('a').get('href')
-        details_link = 'https://www.ceneo.pl' + details_link
-        # Extract image link
+        details_link = 'https://www.ceneo.pl' + soup.find('a').get('href')
+
         image_tag = soup.find('div', class_='cat-prod-row__foto').find('img')
+
         if image_tag['src'].startswith('//'):
             image_link = 'https:' + image_tag['src']
         else:
             image_link = 'https:' + image_tag['data-original']
 
-        # Extract price
         price_tag = soup.find('div', class_='cat-prod-row__price').find('span', class_='price')
         price = price_tag.text.strip()
 
-        # Print the extracted information
         return Details(product_name, price, image_link, details_link)

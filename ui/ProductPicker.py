@@ -3,8 +3,8 @@ import time
 
 import flet as ft
 
-from details import Details
-from scrapperStrategies import sortedBy, ceneoScrapper
+from model.details import Details
+from model.scrapperStrategies import sortedBy, ceneoScrapper
 from ui.Common import MyButton, MyTitle
 
 
