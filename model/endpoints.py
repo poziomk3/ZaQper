@@ -7,4 +7,5 @@ def get_scrapper_names() -> list[str]:
 
 
 def get_scrapper_strategy(name: str, sorted_by: str) -> AbstractScrapper:
+
     return scrappers[name](sorted_by)

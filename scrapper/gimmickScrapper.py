@@ -6,8 +6,6 @@ from model.utils import  sortedBy
 
 
 class GimmickScrapper(AbstractScrapper):
-    def __init__(self, sorted_by: sortedBy | None = None):
-        self.sorted_by = sorted_by
 
     def scrape_list_of_products(self, product_name: str, number_of_items: int) -> list[Details]:
         time.sleep(1)

@@ -3,13 +3,11 @@ from selenium.webdriver.common.by import By
 
 from model import Details
 from model.abstractScrapper import AbstractScrapper
-from model.utils import   create_driver,sortedBy
+from model.utils import create_driver, sortedBy
 
 
 class CeneoScrapper(AbstractScrapper):
-    def __init__(self, sorted_by: sortedBy | None = None):
-        self.url = f"https://www.ceneo.pl/;szukaj-"
-        self.sorted_by = sorted_by
+    url = f"https://www.ceneo.pl/;szukaj-"
 
     def scrape_list_of_products(self, product_name: str, number_of_items: int) -> list[Details]:
         driver = create_driver()
