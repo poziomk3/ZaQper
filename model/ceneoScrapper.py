@@ -5,7 +5,7 @@ from model import Details
 from model.scrapper import create_driver, ScrapperStrategy, sortedBy
 
 
-class ceneoScrapper(ScrapperStrategy):
+class CeneoScrapper(ScrapperStrategy):
     def __init__(self, sorted_by: sortedBy | None = None):
         self.url = f"https://www.ceneo.pl/;szukaj-"
         self.sorted_by = sorted_by

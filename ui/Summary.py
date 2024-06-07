@@ -13,5 +13,5 @@ class Summary(ft.UserControl):
         return ft.Column([MyTitle("Summary"),
                           ft.Column([ft.Text(product.name, text_align=ft.TextAlign.CENTER, size=15) for product in
                                      self.products])],
-                         alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
+                         alignment=ft.MainAxisAlignment.START, horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                          height=760)
