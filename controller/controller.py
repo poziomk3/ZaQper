@@ -4,7 +4,7 @@ import flet as ft
 
 from controller.state import State, MainMenuState
 from model.details import Details
-from model.scrapper import ScrapperStrategy
+from model.utils import ScrapperStrategy
 import webbrowser
 
 

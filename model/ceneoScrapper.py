@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 
 from model import Details
-from model.scrapper import create_driver, ScrapperStrategy, sortedBy
+from model.utils import  ScrapperStrategy, create_driver,sortedBy
 
 
 class CeneoScrapper(ScrapperStrategy):

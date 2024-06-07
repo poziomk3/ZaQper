@@ -3,9 +3,9 @@ import time
 
 import flet as ft
 
-from model.ceneoScrapper import ceneoScrapper
 from model.details import Details
-from model.scrapper import sortedBy
+from model.endpoints import  get_scrapper_names, get_scrapper_strategy
+from model.utils import sortedBy
 from ui.Common import MyButton, MyTitle
 
 
@@ -33,6 +33,7 @@ class ProductRow(ft.UserControl):
         super().__init__()
         self.rows_dd = ft.Ref[ft.Dropdown]()
         self.sort_dd = ft.Ref[ft.Dropdown]()
+        self.scrapper_dd = ft.Ref[ft.Dropdown]()
         self.main_column = ft.Ref[ft.Column]()
         self.product_name = product
         self.auctions = []
@@ -50,6 +51,13 @@ class ProductRow(ft.UserControl):
                         MyTitle(self.product_name.upper()),
                         ft.Container(
                             ft.Row([
+                                ft.Dropdown(
+                                    ref=self.scrapper_dd,
+                                    width=140,
+                                    options=[ft.dropdown.Option(x) for x in get_scrapper_names()
+                                             ],
+                                    value=get_scrapper_names()[0]
+                                ), ft.Text("Scrapper.   "),
                                 ft.Text("Showing: "),
                                 ft.Dropdown(
                                     ref=self.rows_dd,
@@ -110,7 +118,8 @@ class ProductRow(ft.UserControl):
                 self.main_column.current.controls[1].controls[index].is_clicked]
 
     def fetch_auctions(self):
-        self.auctions = self.fetch_details(self.product_name, ceneoScrapper(self.sort_dd.current.value),
+        self.auctions = self.fetch_details(self.product_name, get_scrapper_strategy(self.scrapper_dd.current.value,
+                                                                                    self.sort_dd.current.value),
                                            int(self.rows_dd.current.value) * 4)
 
     def on_refresh(self, init=False):

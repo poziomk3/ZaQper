@@ -1,11 +1,10 @@
 from abc import ABC, abstractmethod
-from enum import Enum
-
 from fake_useragent import UserAgent
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from model.details import Details
+from enum import Enum
 
 
 class sortedBy(Enum):
@@ -14,6 +13,12 @@ class sortedBy(Enum):
     # PRICE_DESC = "price_desc"
     POPULARITY = "popularity"
     REVIEWS = "reviews"
+
+
+class ScrapperStrategy(ABC):
+    @abstractmethod
+    def scrape_list_of_products(self, product_name: str, number_of_items) -> list[Details]:
+        pass
 
 
 def create_driver():
@@ -29,7 +34,3 @@ def create_driver():
     return driver
 
 
-class ScrapperStrategy(ABC):
-    @abstractmethod
-    def scrape_list_of_products(self, product_name: str, number_of_items) -> list[Details]:
-        pass

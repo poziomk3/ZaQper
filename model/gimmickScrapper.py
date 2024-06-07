@@ -1,7 +1,7 @@
 import time
 
-from model import ScrapperStrategy, Details
-from model.scrapper import sortedBy
+from model import Details
+from model.utils import  ScrapperStrategy,sortedBy
 
 
 class GimmickScrapper(ScrapperStrategy):
