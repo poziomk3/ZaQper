@@ -4,7 +4,7 @@ import flet as ft
 
 from controller.state import State, MainMenuState
 from model.details import Details
-from model.utils import ScrapperStrategy
+from model.abstractScrapper import AbstractScrapper
 import webbrowser
 
 
@@ -41,7 +41,7 @@ class Controller:
         self.page.update()
 
     @staticmethod
-    def fetch_product_details(product_name: str, scrapper: ScrapperStrategy, number_of_items=4) -> List[Details]:
+    def fetch_product_details(product_name: str, scrapper: AbstractScrapper, number_of_items=4) -> List[Details]:
         return scrapper.scrape_list_of_products(product_name, number_of_items)
 
     @staticmethod

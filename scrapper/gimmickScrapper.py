@@ -1,10 +1,11 @@
 import time
 
 from model import Details
-from model.utils import  ScrapperStrategy,sortedBy
+from model.abstractScrapper import AbstractScrapper
+from model.utils import  sortedBy
 
 
-class GimmickScrapper(ScrapperStrategy):
+class GimmickScrapper(AbstractScrapper):
     def __init__(self, sorted_by: sortedBy | None = None):
         self.sorted_by = sorted_by
 
