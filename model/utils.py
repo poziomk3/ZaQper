@@ -7,9 +7,9 @@ from enum import Enum
 
 class sortedBy(Enum):
     # RELEVANT = "relevance"
+    POPULARITY = "popularity"
     PRICE_ASC = "price"
     # PRICE_DESC = "price_desc"
-    POPULARITY = "popularity"
     REVIEWS = "reviews"
 
 

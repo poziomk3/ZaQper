@@ -10,8 +10,12 @@ class Summary(ft.UserControl):
         self.products = products
 
     def build(self):
-        return ft.Column([MyTitle("Summary"),
-                          ft.Column([ft.Text(product.name, text_align=ft.TextAlign.CENTER, size=15) for product in
-                                     self.products])],
-                         alignment=ft.MainAxisAlignment.START, horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                         height=760)
+        return ft.Column(
+            [
+                ft.Column(
+                    [ft.Text(product.price + "  PLN ---- " + product.name, text_align=ft.TextAlign.CENTER, size=15) for
+                     product in
+                     self.products])
+            ],
+            alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.CENTER, height=760,
+            width=1200)

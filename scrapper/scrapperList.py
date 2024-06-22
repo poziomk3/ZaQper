@@ -3,7 +3,8 @@ from scrapper.gimmickScrapper import GimmickScrapper
 from scrapper.olxScrapper import OlxScrapper
 
 scrappers = {
-    'Gimmick': GimmickScrapper,
+    'OLX': OlxScrapper,
     'Ceneo': CeneoScrapper,
-    'OLX': OlxScrapper
+    'Gimmick': GimmickScrapper,
+
 }

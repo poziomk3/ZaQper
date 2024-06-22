@@ -11,18 +11,18 @@ class GimmickScrapper(AbstractScrapper):
         time.sleep(1)
         return [
                    Details("Organic Almond Butter", "12.99", "https://picsum.photos/200/300",
-                           "https://example.com/almond-butter"),
-                   Details("Quinoa Grain", "8.49", "https://picsum.photos/200/300", "https://example.com/quinoa"),
+                           "https://picsum.photos/200/300"),
+                   Details("Quinoa Grain", "8.49", "https://picsum.photos/200/300", "https://picsum.photos/200/300"),
                    Details("Dark Chocolate Bar", "3.75", "https://picsum.photos/200/300",
-                           "https://example.com/dark-chocolate"),
-                   Details("Organic Honey", "6.25", "https://picsum.photos/200/300", "https://example.com/honey"),
-                   Details("Chia Seeds", "5.99", "https://picsum.photos/200/300", "https://example.com/chia-seeds"),
-                   Details("Coconut Oil", "10.50", "https://picsum.photos/200/300", "https://example.com/coconut-oil"),
-                   Details("Kale Chips", "4.75", "https://picsum.photos/200/300", "https://example.com/kale-chips"),
+                           "https://picsum.photos/200/300"),
+                   Details("Organic Honey", "6.25", "https://picsum.photos/200/300", "https://picsum.photos/200/300"),
+                   Details("Chia Seeds", "5.99", "https://picsum.photos/200/300", "https://picsum.photos/200/300"),
+                   Details("Coconut Oil", "10.50", "https://picsum.photos/200/300", "https://picsum.photos/200/300"),
+                   Details("Kale Chips", "4.75", "https://picsum.photos/200/300", "https://picsum.photos/200/300"),
                    Details("Organic Green Tea", "7.99", "https://picsum.photos/200/300",
-                           "https://example.com/green-tea"),
+                           "https://picsum.photos/200/300"),
                    Details("Natural Peanut Butter", "5.49", "https://picsum.photos/200/300",
-                           "https://example.com/peanut-butter"),
+                           "https://picsum.photos/200/300"),
                    Details("Whole Grain Bread", "4.25", "https://picsum.photos/200/300",
-                           "https://example.com/whole-grain-bread")
+                           "https://picsum.photos/200/300")
                ][:number_of_items]

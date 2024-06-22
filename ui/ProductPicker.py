@@ -79,7 +79,7 @@ class ProductRow(ft.UserControl):
                                         ft.dropdown.Option(sortedBy.PRICE_ASC.value),
                                         ft.dropdown.Option(sortedBy.POPULARITY.value),
                                         ft.dropdown.Option(sortedBy.REVIEWS.value),
-                                    ], value=sortedBy.PRICE_ASC.value
+                                    ], value=sortedBy.POPULARITY.value
 
                                 ),
                                 ft.ElevatedButton(text="refresh", on_click=lambda _: self.on_refresh())

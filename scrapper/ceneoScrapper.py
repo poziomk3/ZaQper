@@ -15,8 +15,10 @@ class CeneoScrapper(AbstractScrapper):
         result = [self.strip_details(element.get_attribute("innerHTML")) for element in
                   driver.find_elements(By.CLASS_NAME, "cat-prod-row")[:number_of_items]]
 
-        if len(result) == 0:
-            print(driver.page_source)
+        print(driver.find_elements(By.CLASS_NAME, "cat-prod-row")[0].get_attribute("innerHTML"))
+        print(result[0])
+        # if len(result) != 0:
+        #     print(driver.page_source)
         return result
 
     def get_url_suffix(self) -> str:
@@ -44,3 +46,5 @@ class CeneoScrapper(AbstractScrapper):
         price = price_tag.text.strip()
 
         return Details(product_name, price, image_link, details_link)
+
+
