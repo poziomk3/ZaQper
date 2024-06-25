@@ -14,9 +14,6 @@ class CeneoScrapper(AbstractScrapper):
         driver.get(self.url + product_name + self.get_url_suffix())
         result = [self.strip_details(element.get_attribute("innerHTML")) for element in
                   driver.find_elements(By.CLASS_NAME, "cat-prod-row")[:number_of_items]]
-
-        print(driver.find_elements(By.CLASS_NAME, "cat-prod-row")[0].get_attribute("innerHTML"))
-        print(result[0])
         # if len(result) != 0:
         #     print(driver.page_source)
         return result

@@ -4,8 +4,9 @@ import time
 import flet as ft
 
 from model.details import Details
-from model.endpoints import  get_scrapper_names, get_scrapper_strategy
+from model.endpoints import get_scrapper_names, get_scrapper_strategy
 from model.utils import sortedBy
+from scrapper.scrapperList import ScrapperName
 from ui.Common import MyButton, MyTitle
 
 
@@ -118,8 +119,9 @@ class ProductRow(ft.UserControl):
                 self.main_column.current.controls[1].controls[index].is_clicked]
 
     def fetch_auctions(self):
-        self.auctions = self.fetch_details(self.product_name, get_scrapper_strategy(self.scrapper_dd.current.value,
-                                                                                    self.sort_dd.current.value),
+        self.auctions = self.fetch_details(self.product_name,
+                                           get_scrapper_strategy(ScrapperName(self.scrapper_dd.current.value),
+                                                                 self.sort_dd.current.value),
                                            int(self.rows_dd.current.value) * 4)
 
     def on_refresh(self, init=False):

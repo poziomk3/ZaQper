@@ -13,9 +13,9 @@ class Summary(ft.UserControl):
         return ft.Column(
             [
                 ft.Column(
-                    [ft.Text(product.price + "  PLN ---- " + product.name, text_align=ft.TextAlign.CENTER, size=15) for
+                    [ft.Text("Summary", size=34),*[ft.Text(product.price + "  PLN ---- " + product.name, text_align=ft.TextAlign.CENTER, size=15) for
                      product in
-                     self.products])
+                     self.products]])
             ],
             alignment=ft.MainAxisAlignment.CENTER, horizontal_alignment=ft.CrossAxisAlignment.CENTER, height=760,
             width=1200)
